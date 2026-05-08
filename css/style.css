@@ -1,0 +1,247 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Muli', sans-serif;
+    background-color: #ffffff;
+    color: #6c757d;
+}
+
+/* SIDEBAR */
+.sidebar {
+    background-color: #bd5d38;
+}
+
+.profile-img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 8px solid rgba(255, 255, 255, 0.2);
+    object-fit: cover;
+}
+
+.navbar {
+    padding: 1rem;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 0.8rem 1rem;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+}
+
+/* Hover Effect */
+.navbar-nav .nav-link:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Active Nav Effect */
+.navbar-nav .nav-link.active {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.18);
+}
+
+/* SECTIONS */
+.resume-section {
+    min-height: 100vh;
+    padding: 6rem 2rem;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    align-items: center;
+}
+
+.resume-section-content {
+    width: 100%;
+}
+
+.main-heading {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 6rem;
+    line-height: 1;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #343a40;
+}
+
+.text-highlight {
+    color: #bd5d38;
+}
+
+.sub-heading {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #6c757d;
+}
+
+.sub-heading a {
+    color: #bd5d38;
+    text-decoration: none;
+}
+.company-heading{
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    margin-top: 4rem;
+    color: #bd5d38;
+    text-transform: uppercase;
+}
+
+.lead-text {
+    font-size: 1.2rem;
+    line-height: 1.9;
+    max-width: 950px;
+    text-align: justify;
+}
+
+.section-title {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 4rem;
+    color: #343a40;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+}
+
+.content-box {
+    margin-bottom: 3rem;
+}
+
+.content-title {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    text-transform: uppercase;
+    color: #343a40;
+    font-size: 2rem;
+}
+
+.company-name {
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    color: #bd5d38;
+}
+
+.date-text {
+    min-width: 180px;
+    color: #bd5d38;
+    font-weight: 600;
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-icons a {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #495057;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    background-color: #bd5d38;
+    transform: translateY(-3px);
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.skill-tags span {
+    background-color: #f1f1f1;
+    padding: 0.7rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    color: #343a40;
+}
+
+.certification-list {
+    padding-left: 1.2rem;
+}
+
+.certification-list li {
+    margin-bottom: 1rem;
+}
+
+/* LARGE SCREEN SIDEBAR */
+@media (min-width: 992px) {
+
+    body {
+        padding-left: 280px;
+    }
+
+    .sidebar {
+        width: 280px;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar-collapse {
+        flex-grow: 0;
+    }
+}
+
+/* TABLET */
+@media (max-width: 991px) {
+
+    .resume-section {
+        min-height: auto;
+        padding: 5rem 1.5rem;
+    }
+
+    .main-heading {
+        font-size: 4rem;
+    }
+
+    .section-title {
+        font-size: 3rem;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 576px) {
+
+    .main-heading {
+        font-size: 3rem;
+    }
+
+    .sub-heading {
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .content-title {
+        font-size: 1.5rem;
+    }
+
+    .social-icons a {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+
+    .lead-text {
+        font-size: 1rem;
+    }
+}
