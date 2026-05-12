@@ -2,28 +2,46 @@ html {
     scroll-behavior: smooth;
 }
 
+:root {
+    --primary-color: #0f6cbd;
+    --primary-dark: #084c8d;
+    --text-dark: #2d3436;
+    --text-light: #6c757d;
+    --border-color: #edf0f2;
+}
+
 body {
     font-family: 'Muli', sans-serif;
     background-color: #ffffff;
     color: #5f6b76;
     overflow-x: hidden;
     line-height: 1.7;
-}
-
-/* BLUE THEME */
-:root {
-    --primary-color: #0f6cbd;
-    --primary-dark: #084c8d;
-    --text-dark: #2d3436;
-    --text-light: #6c757d;
+    margin: 0;
+    padding: 0;
 }
 
 /* SIDEBAR */
 .sidebar {
-    background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(180deg,
+            var(--primary-color) 0%,
+            var(--primary-dark) 100%);
     box-shadow: 4px 0 18px rgba(0, 0, 0, 0.08);
+    z-index: 1050;
 }
 
+.navbar {
+    padding: 1rem;
+}
+
+.navbar-brand {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* PROFILE IMAGE */
 .profile-img {
     width: 135px;
     height: 135px;
@@ -35,17 +53,6 @@ body {
 
 .profile-img:hover {
     transform: scale(1.03);
-}
-
-.navbar {
-    padding: 1rem;
-}
-
-.navbar-brand {
-    font-size: 1.8rem;
-    font-family: 'Saira Extra Condensed', sans-serif;
-    font-weight: 700;
-    letter-spacing: 1px;
 }
 
 /* NAVIGATION */
@@ -74,11 +81,8 @@ body {
 
 /* SECTION */
 .resume-section {
-    min-height: auto;
     padding: 3.5rem 2.8rem;
-    border-bottom: 1px solid #edf0f2;
-    display: flex;
-    align-items: center;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .resume-section-content {
@@ -89,12 +93,13 @@ body {
 /* MAIN HEADING */
 .main-heading {
     font-family: 'Saira Extra Condensed', sans-serif;
-    font-size: 4.1rem;
+    font-size: 4rem;
     line-height: 0.92;
     font-weight: 700;
     text-transform: uppercase;
     color: var(--text-dark);
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.8rem;
+    word-break: break-word;
 }
 
 .text-highlight {
@@ -126,9 +131,9 @@ body {
     font-size: 0.92rem;
     line-height: 1.9;
     max-width: 1000px;
-    text-align: justify;
     color: #495057;
     margin-top: 1.8rem;
+    text-align: justify;
 }
 
 /* SECTION TITLES */
@@ -175,8 +180,8 @@ body {
 
 /* LISTS */
 .content-box ul {
-    padding-left: 1.25rem;
-    margin-top: 0.9rem;
+    padding-left: 1.3rem;
+    margin-top: 1rem;
 }
 
 .content-box ul li {
@@ -214,7 +219,7 @@ body {
     font-size: 1.05rem;
     transition: all 0.3s ease;
     text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .social-icons a:hover {
@@ -273,6 +278,9 @@ a {
     }
 
     .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 240px;
         height: 100vh;
         display: flex;
@@ -285,15 +293,26 @@ a {
     }
 }
 
-/* TABLET */
+/* TABLET & MOBILE */
 @media (max-width: 991px) {
 
+    body {
+        padding-top: 82px;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+    }
+
     .resume-section {
-        padding: 3rem 1.8rem;
+        padding: 2.8rem 1.8rem;
     }
 
     .main-heading {
-        font-size: 3.2rem;
+        font-size: 3rem;
+        margin-top: 0;
     }
 
     .section-title {
@@ -311,13 +330,25 @@ a {
     .date-text {
         margin-top: 0.5rem;
     }
+
+    .navbar-collapse {
+        background-color: var(--primary-dark);
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+    }
+
+    .navbar-toggler {
+        border: none;
+        box-shadow: none !important;
+    }
 }
 
 /* MOBILE */
 @media (max-width: 576px) {
 
     body {
-        overflow-x: hidden;
+        padding-top: 78px;
     }
 
     .navbar {
@@ -329,14 +360,13 @@ a {
     }
 
     .resume-section {
-        padding: 2.5rem 1.1rem;
+        padding: 2rem 1.1rem;
     }
 
     .main-heading {
-        font-size: 2.1rem;
+        font-size: 2rem;
         line-height: 1;
-        margin-top: 1rem;
-        word-break: break-word;
+        margin-top: 0;
     }
 
     .sub-heading {
@@ -376,19 +406,7 @@ a {
     }
 
     .profile-img {
-        width: 95px;
-        height: 95px;
-    }
-
-    .navbar-toggler {
-        border: none;
-        box-shadow: none !important;
-    }
-
-    .navbar-collapse {
-        background-color: var(--primary-dark);
-        padding: 1rem;
-        border-radius: 10px;
-        margin-top: 1rem;
+        width: 90px;
+        height: 90px;
     }
 }
