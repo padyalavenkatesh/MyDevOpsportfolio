@@ -1,1415 +1,948 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Padyala Venkateswara Rao | DevOps Engineer (AWS/Azure)</title>
 
-  <title>Saisuresh Yerragogu | Senior DevOps & Site Reliability Engineer (AWS/Azure)</title>
-
-  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-
-  <!-- Fonts -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@400;600;700&family=Muli:wght@300;400;600;700&display=swap"
-    rel="stylesheet">
+  <style>
+    :root {
+      --navy:       #0a0f1e;
+      --navy-mid:   #111827;
+      --navy-card:  #141d2e;
+      --navy-border:#1e2d45;
+      --cyan:       #00d4ff;
+      --cyan-dim:   #0099bb;
+      --cyan-glow:  rgba(0,212,255,0.12);
+      --amber:      #f59e0b;
+      --text-pri:   #e8edf5;
+      --text-sec:   #8899b0;
+      --text-muted: #506070;
+      --sidebar-w:  280px;
+      --font-head:  'Bebas Neue', sans-serif;
+      --font-body:  'DM Sans', sans-serif;
+      --font-mono:  'JetBrains Mono', monospace;
+    }
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css" />
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--text-pri);
+      line-height: 1.7;
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--navy); }
+    ::-webkit-scrollbar-thumb { background: var(--navy-border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--cyan-dim); }
+
+    /* ══════════════════════════════════
+       SIDEBAR
+    ══════════════════════════════════ */
+    #sideNav {
+      background: var(--navy-mid);
+      border-right: 1px solid var(--navy-border);
+      width: var(--sidebar-w);
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 1.5rem;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    /* avatar ring */
+    .avatar-wrap {
+      width: 130px; height: 130px;
+      border-radius: 50%;
+      padding: 3px;
+      background: conic-gradient(var(--cyan), var(--amber), var(--cyan));
+      margin-bottom: 1.4rem;
+      flex-shrink: 0;
+      animation: spin-ring 8s linear infinite;
+    }
+    @keyframes spin-ring { to { transform: rotate(360deg); } }
+
+    .avatar-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: var(--navy-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head);
+      font-size: 2.8rem;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      overflow: hidden;
+    }
+
+    .sidebar-name {
+      font-family: var(--font-head);
+      font-size: 1.35rem;
+      letter-spacing: 2px;
+      color: var(--text-pri);
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 0.4rem;
+    }
+
+    .sidebar-role {
+      font-size: 0.72rem;
+      color: var(--cyan);
+      text-align: center;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      font-family: var(--font-mono);
+    }
+
+    /* divider */
+    .s-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--navy-border);
+      margin-bottom: 1.8rem;
+    }
+
+    /* nav links */
+    .side-nav-list {
+      list-style: none;
+      width: 100%;
+    }
+
+    .side-nav-list li + li { margin-top: 0.3rem; }
+
+    .side-nav-list a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .side-nav-list a i {
+      font-size: 1rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .side-nav-list a:hover,
+    .side-nav-list a.active {
+      color: var(--cyan);
+      background: var(--cyan-glow);
+      border-color: var(--navy-border);
+    }
+
+    /* mobile nav */
+    .mobile-bar {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--navy-mid);
+      border-bottom: 1px solid var(--navy-border);
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.25rem;
+      z-index: 1001;
+    }
+
+    .mobile-name {
+      font-family: var(--font-head);
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      color: var(--cyan);
+    }
+
+    .hamburger {
+      background: none;
+      border: 1px solid var(--navy-border);
+      border-radius: 6px;
+      padding: 0.3rem 0.55rem;
+      color: var(--text-sec);
+      cursor: pointer;
+      font-size: 1.1rem;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: var(--navy-mid);
+      border-bottom: 1px solid var(--navy-border);
+      z-index: 1000;
+      padding: 1rem;
+    }
+
+    .mobile-menu.open { display: block; }
+
+    .mobile-menu a {
+      display: block;
+      padding: 0.6rem 1rem;
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 0.9rem;
+      border-radius: 6px;
+    }
+
+    .mobile-menu a:hover { color: var(--cyan); background: var(--cyan-glow); }
+
+    /* ══════════════════════════════════
+       MAIN CONTENT
+    ══════════════════════════════════ */
+    .main-wrap {
+      margin-left: var(--sidebar-w);
+      min-height: 100vh;
+    }
+
+    .resume-section {
+      padding: 5rem 3.5rem 4rem;
+      border-bottom: 1px solid var(--navy-border);
+      min-height: 100vh;
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-family: var(--font-head);
+      font-size: 3rem;
+      letter-spacing: 3px;
+      color: var(--text-pri);
+      margin-bottom: 2.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px; left: 0;
+      width: 60%; height: 2px;
+      background: linear-gradient(90deg, var(--cyan), transparent);
+    }
+
+    /* ══════════════════════════════════
+       ABOUT / HERO
+    ══════════════════════════════════ */
+    #about {
+      display: flex;
+      align-items: flex-start;
+      padding-top: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* background grid */
+    #about::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .about-content { position: relative; z-index: 1; }
+
+    .main-heading {
+      font-family: var(--font-head);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      letter-spacing: 4px;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      color: var(--text-pri);
+    }
+
+    .text-highlight {
+      color: var(--cyan);
+      text-shadow: 0 0 40px rgba(0,212,255,0.4);
+    }
+
+    .sub-heading {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+      margin-bottom: 2rem;
+    }
+
+    .sub-heading a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+    .sub-heading a:hover { text-decoration: underline; }
+
+    .lead-text {
+      font-size: 1rem;
+      color: var(--text-sec);
+      max-width: 780px;
+      line-height: 1.85;
+      margin-bottom: 2rem;
+    }
+
+    /* social icons */
+    .social-icons { display: flex; gap: 1rem; margin-top: 0.5rem; }
+
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      border-radius: 10px;
+      border: 1px solid var(--navy-border);
+      color: var(--text-sec);
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      background: var(--navy-card);
+    }
+
+    .social-icons a:hover {
+      color: var(--cyan);
+      border-color: var(--cyan);
+      background: var(--cyan-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,212,255,0.2);
+    }
+
+    /* badge row */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .badge-item {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      border: 1px solid var(--cyan-dim);
+      color: var(--cyan);
+      background: rgba(0,212,255,0.06);
+      letter-spacing: 0.5px;
+    }
+
+    /* ══════════════════════════════════
+       CONTENT CARDS
+    ══════════════════════════════════ */
+    .content-box {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 12px;
+      padding: 2rem 2.2rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .content-box:hover {
+      border-color: rgba(0,212,255,0.3);
+      box-shadow: 0 4px 32px rgba(0,212,255,0.06);
+    }
+
+    .content-box:hover::before { opacity: 1; }
+
+    .content-title {
+      font-family: var(--font-head);
+      font-size: 1.4rem;
+      letter-spacing: 1.5px;
+      color: var(--text-pri);
+      margin-bottom: 0.3rem;
+    }
+
+    .company-name {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--cyan);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .date-text {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--amber);
+      white-space: nowrap;
+      padding: 0.3rem 0.8rem;
+      border: 1px solid rgba(245,158,11,0.3);
+      border-radius: 100px;
+      background: rgba(245,158,11,0.05);
+      height: fit-content;
+    }
+
+    .content-box ul {
+      padding-left: 1.3rem;
+      margin-top: 1rem;
+    }
+
+    .content-box ul li {
+      color: var(--text-sec);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.7;
+    }
+
+    .content-box ul li::marker { color: var(--cyan); }
+
+    .content-box p {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-family: var(--font-mono);
+      margin-top: 0.5rem;
+      line-height: 1.6;
+    }
+
+    /* ══════════════════════════════════
+       SKILLS TAGS
+    ══════════════════════════════════ */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .skill-tags span {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 6px;
+      background: rgba(0,212,255,0.05);
+      border: 1px solid var(--navy-border);
+      color: var(--text-sec);
+      font-family: var(--font-mono);
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .skill-tags span:hover {
+      background: var(--cyan-glow);
+      border-color: var(--cyan-dim);
+      color: var(--cyan);
+      transform: translateY(-1px);
+    }
+
+    /* ══════════════════════════════════
+       EXPERIENCE TIMELINE DOT
+    ══════════════════════════════════ */
+    .company-header {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .company-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════
+       PREVIOUS EXPERIENCE (compact)
+    ══════════════════════════════════ */
+    .prev-exp-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      padding: 1rem 1.5rem;
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 10px;
+      margin-bottom: 0.9rem;
+      transition: border-color 0.2s;
+    }
+
+    .prev-exp-row:hover { border-color: rgba(0,212,255,0.25); }
+
+    .prev-exp-role {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-pri);
+    }
+
+    .prev-exp-company {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--cyan);
+      margin-top: 0.15rem;
+    }
+
+    /* ══════════════════════════════════
+       EDUCATION
+    ══════════════════════════════════ */
+    .edu-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: var(--cyan-glow);
+      border: 1px solid var(--navy-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      color: var(--cyan);
+      flex-shrink: 0;
+    }
+
+    /* ══════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════ */
+    @media (max-width: 991px) {
+      #sideNav { display: none; }
+      .mobile-bar { display: flex; }
+      .main-wrap { margin-left: 0; padding-top: 56px; }
+      .resume-section { padding: 3rem 1.5rem 2.5rem; }
+      .main-heading { font-size: 2.8rem; }
+    }
+
+    /* ── FADE IN ANIMATION ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 
-<body data-bs-spy="scroll" data-bs-target="#sideNav" data-bs-offset="100" tabindex="0">
+<body>
+
+  <!-- MOBILE BAR -->
+  <div class="mobile-bar">
+    <span class="mobile-name">P. VENKATESWARA RAO</span>
+    <button class="hamburger" id="hamburgerBtn"><i class="bi bi-list"></i></button>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about"      onclick="closeMobileMenu()"><i class="bi bi-person me-2"></i>About</a>
+    <a href="#experience" onclick="closeMobileMenu()"><i class="bi bi-briefcase me-2"></i>Experience</a>
+    <a href="#skills"     onclick="closeMobileMenu()"><i class="bi bi-cpu me-2"></i>Skills</a>
+    <a href="#education"  onclick="closeMobileMenu()"><i class="bi bi-mortarboard me-2"></i>Education</a>
+  </div>
 
   <!-- SIDEBAR -->
-  <nav class="navbar navbar-expand-lg navbar-dark sidebar fixed-top" id="sideNav">
+  <nav id="sideNav">
 
-    <div class="container-fluid flex-lg-column">
-
-      <!-- MOBILE TITLE -->
-      <a class="navbar-brand d-lg-none" href="#about">
-        SAISURESH YERRAGOGU
-      </a>
-
-      <!-- PROFILE IMAGE -->
-      <a class="d-none d-lg-block mb-4" href="#about">
-
-        <img src="./assets/Saisureshy.png"
-          alt="Saisuresh Yerragogu"
-          class="img-fluid profile-img" />
-
-      </a>
-
-      <!-- TOGGLE -->
-      <button class="navbar-toggler" type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarNav">
-
-        <span class="navbar-toggler-icon"></span>
-
-      </button>
-
-      <!-- NAVIGATION -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-
-        <ul class="navbar-nav flex-column text-lg-center w-100">
-
-          <li class="nav-item">
-            <a class="nav-link active" href="#about">About</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#experience">Experience</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#projects">Projects</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#skills">Skills</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link" href="#education">Education</a>
-          </li>
-
-        </ul>
-
-      </div>
-
+    <div class="avatar-wrap">
+      <div class="avatar-inner">PVR</div>
     </div>
+
+    <div class="sidebar-name">P. VENKATESWARA<br>RAO</div>
+    <div class="sidebar-role">DevOps Engineer</div>
+
+    <div class="s-divider"></div>
+
+    <ul class="side-nav-list">
+      <li><a href="#about"      class="nav-link active"><i class="bi bi-person-fill"></i> About</a></li>
+      <li><a href="#experience" class="nav-link"><i class="bi bi-briefcase-fill"></i> Experience</a></li>
+      <li><a href="#skills"     class="nav-link"><i class="bi bi-cpu-fill"></i> Skills</a></li>
+      <li><a href="#education"  class="nav-link"><i class="bi bi-mortarboard-fill"></i> Education</a></li>
+    </ul>
 
   </nav>
 
   <!-- MAIN CONTENT -->
-  <div class="container-fluid p-0">
+  <div class="main-wrap">
 
-    <!-- ABOUT -->
+    <!-- ══ ABOUT ══ -->
     <section class="resume-section" id="about">
-
-      <div class="resume-section-content">
+      <div class="about-content">
 
         <h1 class="main-heading">
-
-          SAISURESH
-
-          <span class="text-highlight">
-            YERRAGOGU
-          </span>
-
+          VENKATESWARA
+          <span class="text-highlight">RAO</span>
         </h1>
 
-        <div class="sub-heading mb-5">
-
-          Senior DevOps & Site Reliability Engineer (AWS/Azure), Hyderabad, India· +91 9394333233·
-
-          <a href="mailto:ysaisuresh333@gmail.com">
-            ysaisuresh333@gmail.com
-          </a>
-
+        <div class="sub-heading mb-3">
+          DevOps Engineer &nbsp;·&nbsp; AWS / Azure &nbsp;·&nbsp; Hyderabad, India &nbsp;·&nbsp;
+          +91-9949963638 &nbsp;·&nbsp;
+          <a href="mailto:padyalavenkatesh@gmail.com">padyalavenkatesh@gmail.com</a>
         </div>
 
-        <p class="lead-text mb-5">
+        <div class="badge-row">
+          <span class="badge-item">AWS</span>
+          <span class="badge-item">Azure DevOps</span>
+          <span class="badge-item">Kubernetes</span>
+          <span class="badge-item">Docker</span>
+          <span class="badge-item">Terraform</span>
+          <span class="badge-item">Jenkins</span>
+          <span class="badge-item">GitHub Actions</span>
+          <span class="badge-item">CI/CD</span>
+          <span class="badge-item">8+ Years Exp.</span>
+        </div>
 
-          AWS/Azure DevOps Engineer and Site Reliability Engineer (SRE) with 9+ years
-          of experience in Cloud Infrastructure, CI/CD Automation, GitOps, Kubernetes,
-          Docker, Terraform, Jenkins, GitHub Actions, GitLab CI/CD, ArgoCD,
-          Red Hat OpenShift, Azure App Services, and Infrastructure as Code (IaC).
-        
-          Experienced in designing scalable cloud-native architectures, implementing
-          DevSecOps practices, automating enterprise deployments, managing highly
-          available Kubernetes and OpenShift environments, and supporting
-          production-grade enterprise applications across AWS and Microsoft Azure
-          cloud platforms.
-        
-          Strong expertise in Azure App Services, AKS, EKS, OpenShift, GitHub Actions,
-          GitLab CI/CD, Terraform, Docker, Kubernetes, Jenkins, monitoring and
-          observability platforms including Grafana, Prometheus, Dynatrace, ELK,
-          Splunk, and CloudWatch.
-        
-          Hands-on experience in infrastructure automation, disaster recovery (DR),
-          cloud migrations, release management, Linux administration, automation
-          scripting, RBAC, Azure Front Door, CI/CD governance, and enterprise
-          production support for scalable microservices environments.
-        
+        <p class="lead-text">
+          DevOps Engineer with 8+ years of overall experience, including 6+ years specializing in
+          CI/CD automation, cloud infrastructure, and build &amp; release management across AWS and
+          Microsoft Azure environments. Proficient in Docker, Kubernetes, Terraform, Ansible, and
+          Jenkins, with hands-on expertise in designing automated pipelines using GitHub Actions and
+          Azure DevOps. Experienced in deploying containerized workloads, implementing observability
+          solutions with Prometheus, Grafana, Splunk, and AppDynamics, and collaborating with
+          cross-functional teams to ensure scalable, reliable, and secure software delivery.
         </p>
-        <!-- SOCIAL ICONS -->
+
         <div class="social-icons">
-        
-          <!-- LINKEDIN -->
-          <a href="https://www.linkedin.com/in/saisuresh-yerragogu-devops/"
-             target="_blank"
-             rel="noopener noreferrer">
-          
+          <a href="https://www.linkedin.com/in/venkatesh-padyala-devops-engineer/"
+             target="_blank" rel="noopener noreferrer" title="LinkedIn">
             <i class="bi bi-linkedin"></i>
-        
           </a>
-        
-          <!-- GITHUB -->
-          <a href="https://github.com/saisureshy"
-             target="_blank">
-        
-            <i class="bi bi-github"></i>
-        
-          </a>
-        
-          <!-- EMAIL -->
-          <a href="mailto:ysaisuresh333@gmail.com">
-        
+          <a href="mailto:padyalavenkatesh@gmail.com" title="Email">
             <i class="bi bi-envelope-fill"></i>
-        
           </a>
-
+          <a href="tel:+919949963638" title="Phone">
+            <i class="bi bi-telephone-fill"></i>
+          </a>
         </div>
 
       </div>
-
     </section>
 
-    <!-- EXPERIENCE -->
+    <!-- ══ EXPERIENCE ══ -->
     <section class="resume-section" id="experience">
+      <h2 class="section-title">Experience</h2>
 
-      <div class="resume-section-content">
-
-        <h2 class="section-title">
-          Experience
-        </h2>
-
-        <!-- REPUBLIC -->
-        <div class="content-box">
-
-          <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
-
-            <div>
-
-              <h3 class="content-title">
-                Senior Azure DevOps Engineer & Cloud Engineer
-              </h3>
-
-              <div class="company-name mb-3">
-                Republic Services Inc.
-              </div>
-
-              <ul>
-
-              <li>
-                Designed and maintained CI/CD pipelines using GitHub Actions for .NET and SharePoint applications.
-              </li>
-            
-              <li>
-                Automated Azure infrastructure provisioning using Terraform including App Services, deployment slots, VNets, and networking configurations.
-              </li>
-            
-              <li>
-                Configured Azure App Services and deployment slots for blue-green deployments and preview environments.
-              </li>
-            
-              <li>
-                Built reusable GitHub Actions YAML workflows for build validation, testing, code coverage, and release automation.
-              </li>
-            
-              <li>
-                Managed deployments to Azure App Services and on-premises IIS environments for secure and reliable releases.
-              </li>
-            
-              <li>
-                Automated SharePoint WSP package generation and deployments through CI/CD pipelines.
-              </li>
-            
-              <li>
-                Configured Azure App Service authentication using Microsoft Identity Provider and tenant restrictions.
-              </li>
-            
-              <li>
-                Set up and maintained self-hosted GitHub runners for enterprise deployment automation.
-              </li>
-            
-              <li>
-                Migrated SonarQube security validation processes to GitHub Advanced Security (GHAS).
-              </li>
-            
-              <li>
-                Implemented branch protections, RBAC permissions, approval workflows, and deployment governance.
-              </li>
-            
-              <li>
-                Configured Azure Front Door, VNet integration, DNS validation, and disaster recovery automation.
-              </li>
-            
-              <li>
-                Automated DR failover activities and environment synchronization for high availability scenarios.
-              </li>
-            
-              <li>
-                Built and managed Docker container images and supported Kubernetes-based application deployments.
-              </li>
-            
-              <li>
-                Assisted in Kubernetes deployment configuration including manifests, ingress, secrets, scaling, and environment variables.
-              </li>
-            
-              <li>
-                Supported migration of traditional IIS-hosted applications into containerized cloud-native environments.
-              </li>
-            
-              <li>
-                Integrated GitHub Actions with Azure services for automated deployments, slot swaps, and infrastructure automation.
-              </li>
-            
-              <li>
-                Optimized CI/CD pipeline performance through workflow enhancements and caching strategies.
-              </li>
-            
-              <li>
-                Troubleshot deployment failures, authentication issues, networking problems, and infrastructure configuration issues across Azure and on-premises environments.
-              </li>
-            
-              <li>
-                Collaborated with development and QA teams to streamline release management and improve deployment reliability.
-              </li>
-            
-              <li>
-                Enforced organizational security, governance, and compliance standards through secure DevOps practices and automated access controls.
-              </li>
-            
+      <!-- Genpact → Kroll -->
+      <div class="content-box fade-in">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+          <div>
+            <h3 class="content-title">Azure DevOps Engineer</h3>
+            <div class="company-header">
+              <div class="company-dot"></div>
+              <div class="company-name">Genpact India Pvt Ltd &nbsp;·&nbsp; Client: Kroll</div>
+            </div>
+            <ul>
+              <li>Worked extensively on Azure DevOps services including Azure Pipelines, Azure Boards, Azure Repos, and Release Management.</li>
+              <li>Created and maintained YAML-based CI/CD pipelines for automated application build, test, and deployment workflows.</li>
+              <li>Managed Azure Boards for sprint planning, task tracking, bug management, and Agile workflows.</li>
+              <li>Configured and maintained Azure Repos with branching strategies and repository access permissions.</li>
+              <li>Implemented Release Pipelines for deployment across multiple environments (Dev, QA, Staging, Production).</li>
+              <li>Configured Azure Application Insights for application performance monitoring and diagnostics.</li>
+              <li>Set up monitoring alerts and dashboards using Azure Monitor and App Insights for proactive incident detection.</li>
+              <li>Integrated security and quality checks within Azure DevOps pipelines to enforce compliance standards.</li>
+              <li>Managed deployment approvals, release scheduling, and environment-specific configurations.</li>
+              <li>Automated deployment and operational tasks using PowerShell scripting.</li>
+              <li>Coordinated with cross-functional development and operations teams for production releases and incident resolution.</li>
             </ul>
-
-            </div>
-
-            <div class="date-text">
-              Mar 2024 - Present
-            </div>
-
           </div>
-
+          <div class="date-text">Aug 2025 – Present</div>
         </div>
+      </div>
 
-        <!-- Centene -->
-        <div class="content-box">
-
-          <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
-
-            <div>
-
-              <h3 class="content-title">
-                Senior AWS DevOps Engineer & Cloud Engineer
-              </h3>
-
-              <div class="company-name mb-3">
-                Centene
-              </div>
-
-              <ul>
-
-                <li>
-                  Managed source code repositories using GitLab and GitHub, including repository creation, branch strategies, access control, and pull request workflows.
-                </li>
-        
-                <li>
-                  Designed and maintained GitLab CI/CD pipelines to automate build, test, and deployment processes for microservices-based applications.
-                </li>
-        
-                <li>
-                  Implemented GitOps-based deployment workflows using ArgoCD, enabling automated synchronization of Kubernetes manifests from Git repositories.
-                </li>
-        
-                <li>
-                  Containerized applications using Docker, building optimized Docker images and maintaining container registries.
-                </li>
-        
-                <li>
-                  Deployed and managed containerized workloads on Kubernetes and Red Hat OpenShift clusters, supporting both stateless and stateful applications.
-                </li>
-        
-                <li>
-                  Managed multi-cluster Kubernetes environments, maintaining cluster nodes, namespaces, and workloads across development and production environments.
-                </li>
-        
-                <li>
-                  Configured and maintained Helm charts to deploy Kubernetes resources including Deployments, StatefulSets, ReplicaSets, Services, ConfigMaps, Secrets, and Ingress.
-                </li>
-        
-                <li>
-                  Implemented blue-green deployments, rolling updates, and rollback strategies to ensure zero-downtime releases for microservices applications.
-                </li>
-        
-                <li>
-                  Managed dedicated Kubernetes pods for platform services including Kafka, Grafana, Prometheus, Dynatrace agents, and monitoring components.
-                </li>
-        
-                <li>
-                  Implemented infrastructure provisioning using Terraform, creating Kubernetes resources such as namespaces, volumes, autoscalers, and configuration objects.
-                </li>
-        
-                <li>
-                  Integrated and maintained observability and monitoring platforms including Grafana, Prometheus, Dynatrace (APM), Kibana, Splunk, Nagios, and Elastic Stack (ELK).
-                </li>
-        
-                <li>
-                  Created monitoring dashboards and alerting mechanisms for infrastructure and application health metrics.
-                </li>
-        
-                <li>
-                  Implemented centralized logging and metrics collection for containerized environments.
-                </li>
-        
-                <li>
-                  Configured alerting systems integrated with PagerDuty, enabling automated email, SMS, and incident notifications from Grafana and Dynatrace.
-                </li>
-        
-                <li>
-                  Monitored application performance and infrastructure health, performing proactive incident detection and root cause analysis (RCA).
-                </li>
-        
-                <li>
-                  Worked as part of the SRE on-call rotation, responding to alerts, resolving production incidents, and ensuring system reliability.
-                </li>
-        
-                <li>
-                  Implemented Kafka-based messaging services within Kubernetes environments for microservices communication.
-                </li>
-        
-                <li>
-                  Managed CI/CD infrastructure using Jenkins pipelines (scripted and declarative) for application builds and deployments.
-                </li>
-        
-                <li>
-                  Configured artifact management systems such as JFrog Artifactory for storing build artifacts and container images.
-                </li>
-        
-                <li>
-                  Provisioned and managed AWS cloud infrastructure, including EC2, S3, IAM, VPC, ELB, Lambda, SNS, SQS, and CloudWatch.
-                </li>
-        
-                <li>
-                  Implemented AWS monitoring and logging using CloudWatch, enabling performance tracking and alert generation.
-                </li>
-        
-                <li>
-                  Managed Linux server environments on VMware and cloud infrastructure, including server provisioning, patching, and maintenance.
-                </li>
-        
-                <li>
-                  Automated infrastructure tasks and configuration management using scripting and CI/CD automation tools.
-                </li>
-        
-                <li>
-                  Collaborated with development teams to optimize application architecture, CI/CD processes, and deployment strategies.
-                </li>
-        
-                <li>
-                  Supported microservices architecture deployments, ensuring scalability, fault tolerance, and high availability.
-                </li>
-        
-                <li>
-                  Managed separate Kubernetes/OpenShift clusters and namespaces for Disaster Recovery (DR) environments, ensuring high availability and failover readiness for critical microservices applications.
-                </li>
-        
-                <li>
-                  Designed and maintained DR environments in Red Hat OpenShift, replicating production workloads and configurations to ensure business continuity.
-                </li>
-        
-                <li>
-                  Implemented GitOps-based deployment strategies using ArgoCD across both primary and DR clusters, enabling consistent application synchronization and automated recovery deployments.
-                </li>
-        
-                <li>
-                  Configured namespace-based isolation in OpenShift clusters to manage workloads across DEV, QA, PROD, and DR environments.
-                </li>
-        
-                <li>
-                  Ensured data replication, configuration consistency, and infrastructure parity between production and DR environments.
-                </li>
-        
-                <li>
-                  Performed DR failover testing and validation to ensure application resiliency and disaster recovery readiness.
-                </li>
-        
-                <li>
-                  Monitored DR clusters and namespaces using Grafana, Prometheus, and Dynatrace, ensuring real-time visibility of infrastructure and application health.
-                </li>
-        
-                <li>
-                  Containerized Docker images and configured customized Docker containers and Dockerfiles for different environments.
-                </li>
-        
-                <li>
-                  Deployed stateless and stateful applications on Kubernetes clusters using health checks, ConfigMaps, Secrets, and node placement strategies.
-                </li>
-
+      <!-- Genpact → CDK Global -->
+      <div class="content-box fade-in">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+          <div>
+            <h3 class="content-title">AWS DevOps Engineer</h3>
+            <div class="company-header">
+              <div class="company-dot"></div>
+              <div class="company-name">Genpact India Pvt Ltd &nbsp;·&nbsp; Client: CDK Global</div>
             </div>
-
-            <div class="date-text">
-              Jan 2023 - Mar 2024
-            </div>
-
+            <ul>
+              <li>Worked extensively on AWS cloud services including EC2, S3, IAM, VPC, CloudWatch, Load Balancers, and Auto Scaling.</li>
+              <li>Designed and implemented CI/CD pipelines using GitHub Actions for automated build, test, and deployment processes.</li>
+              <li>Managed source code repositories, branching strategies, and access controls using GitHub.</li>
+              <li>Automated infrastructure provisioning and configuration management using Terraform.</li>
+              <li>Containerized applications using Docker and deployed workloads into Kubernetes environments.</li>
+              <li>Integrated SonarQube for code quality analysis and security scanning within CI/CD workflows.</li>
+              <li>Configured monitoring and alerting using Prometheus and Grafana dashboards for multi-environment visibility.</li>
+              <li>Performed troubleshooting for pipeline failures, deployment issues, and infrastructure-related incidents.</li>
+              <li>Maintained Linux servers and automated operational tasks using Shell scripting.</li>
+              <li>Managed application logs and infrastructure monitoring using AWS CloudWatch.</li>
+            </ul>
           </div>
-
+          <div class="date-text">Jul 2024 – Apr 2025</div>
         </div>
+      </div>
 
-        <!-- T-MOBILE -->
-        <div class="content-box">
-
-          <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
-
-            <div>
-
-              <h3 class="content-title">
-                Senior DevOps Engineer
-              </h3>
-
-              <div class="company-name mb-3">
-                T-Mobile
-              </div>
-
-              <ul>
-
-                <li>
-                  Developed and maintained GitLab CI/CD pipelines using YAML to automate build, test, and deployment workflows for containerized applications in multi-cloud environments (AWS and Azure).
-                </li>
-              
-                <li>
-                  Built and deployed containerized applications using Docker and Kubernetes, ensuring consistent environments across development, QA, staging, and production.
-                </li>
-              
-                <li>
-                  Designed and optimized Dockerfiles following container best practices, improving build performance, image size, and security compliance.
-                </li>
-              
-                <li>
-                  Containerized legacy on-premise applications into microservices architecture using Docker and Kubernetes, enabling scalable cloud deployments.
-                </li>
-              
-                <li>
-                  Managed Kubernetes clusters across multi-cloud platforms, deploying workloads to Azure Kubernetes Service (AKS) and Amazon Elastic Kubernetes Service (EKS).
-                </li>
-              
-                <li>
-                  Configured and maintained highly available AKS clusters, ensuring fault tolerance, scalability, and high availability across multiple availability zones.
-                </li>
-              
-                <li>
-                  Managed and integrated EKS worker nodes with Kubernetes control plane, supporting containerized application deployments on AWS.
-                </li>
-              
-                <li>
-                  Customized and maintained Helm charts to deploy Kubernetes resources including Deployments, StatefulSets, ReplicaSets, DaemonSets, ConfigMaps, Secrets, Services, and Ingress controllers.
-                </li>
-              
-                <li>
-                  Automated application build, test, and deployment pipelines using GitLab YAML CI/CD integrated with Docker and Kubernetes clusters (AKS/EKS).
-                </li>
-              
-                <li>
-                  Developed and maintained Jenkins shared libraries to standardize CI/CD workflows for Angular, Node.js, and Java Spring Boot applications.
-                </li>
-              
-                <li>
-                  Integrated code quality and security tools such as SonarQube and Fortify within CI/CD pipelines, enabling automated testing and Slack-based notifications.
-                </li>
-              
-                <li>
-                  Automated AWS infrastructure provisioning using Terraform, including EC2, VPC, S3, RDS, ELB, Route53, Lambda, EBS, Auto Scaling, and IAM resources.
-                </li>
-              
-                <li>
-                  Implemented Infrastructure as Code (IaC) using Terraform for provisioning and managing resources across AWS and Azure environments.
-                </li>
-              
-                <li>
-                  Automated EC2 instance patching and configuration management using Ansible playbooks, improving system compliance and operational efficiency.
-                </li>
-              
-                <li>
-                  Configured monitoring and observability across multi-cloud infrastructure using Grafana, Prometheus, AppDynamics, and Splunk.
-                </li>
-              
-                <li>
-                  Implemented AWS monitoring and logging solutions using CloudWatch and CloudTrail for application and infrastructure monitoring.
-                </li>
-              
-                <li>
-                  Implemented security controls including TLS/SSL certificate automation and Web Application Firewall (WAF) configurations for secure application access.
-                </li>
-              
-                <li>
-                  Supported cloud cost optimization initiatives across AWS and Azure environments using monitoring and analytics tools such as PacBot.
-                </li>
-              
-                <li>
-                  Configured and maintained Apache web servers and WebLogic application servers for enterprise applications.
-                </li>
-              
-                <li>
-                  Deployed, monitored, tuned, and managed WebLogic clusters across multi-server environments.
-                </li>
-              
-                <li>
-                  Provisioned new servers and infrastructure resources for enterprise applications including T-Mobile Activation Gateway (T-MAG) and TESA platforms.
-                </li>
-              
-                <li>
-                  Provided production support for deployments, incident resolution, and infrastructure troubleshooting across Kubernetes and cloud environments.
-                </li>
-              
-                <li>
-                  Conducted impact analysis for change requests and infrastructure decommission planning to optimize resource utilization.
-                </li>
-              
-                <li>
-                  Managed multi-cluster Kubernetes environments across AKS and EKS clusters for production and non-production workloads.
-                </li>
-              
-                <li>
-                  Implemented secure networking configurations including Direct Connect, VPN connectivity, and firewall proxy configurations for hybrid cloud connectivity.
-                </li>
-              
-                <li>
-                  Collaborated with development, QA, and operations teams to improve CI/CD automation, system reliability, and cloud infrastructure scalability.
-                </li>
-              
-                <li>
-                  Hands-on experience in setting up highly available, fault-tolerant, multi-AZ AKS clusters.
-                </li>
-              
-                <li>
-                  Created Jenkins shared libraries for automating build and release processes for Angular, NodeJS, and Java Spring Boot applications.
-                </li>
-              
-                <li>
-                  Customized Dockerfiles following best practices based on application and developer requirements.
-                </li>
-              
-                <li>
-                  Migrated artifacts from JFrog Artifactory repositories to GitLab registries.
-                </li>
-              
-                <li>
-                  Customized Helm charts for Deployments, StatefulSets, ReplicaSets, DaemonSets, ConfigMaps, Secrets, Services, and Ingress resources.
-                </li>
-              
-                <li>
-                  Supported cloud infrastructure cost optimization initiatives using PacBot analytics tools.
-                </li>
-              
-                <li>
-                  Automated EC2 operating system patching activities using Ansible playbooks.
-                </li>
-              
-                <li>
-                  Created infrastructure for T-Mobile Activation Gateway (T-MAG) and TESA applications in Apache and WebLogic environments.
-                </li>
-              
-                <li>
-                  Deployed, monitored, tuned, and configured WebLogic application servers across clustered environments.
-                </li>
-              
-                <li>
-                  Provided production environment support for deployments, application changes, and infrastructure troubleshooting.
-                </li>
-              
-                <li>
-                  Performed impact analysis for internal and external change requests and infrastructure decommission planning.
-                </li>
-              
-                <li>
-                  Created multiple clustered domains across production and non-production environments.
-                </li>
-              
-                <li>
-                  Connected Amazon EKS worker nodes to Kubernetes control planes using Kubernetes APIs.
-                </li>
-              
-                <li>
-                  Wrote GitLab YAML scripts to automate CI/CD build and deployment workflows.
-                </li>
-              
-                <li>
-                  Developed Terraform scripts and reusable Infrastructure as Code modules for cloud infrastructure provisioning.
-                </li>
-              
-                <li>
-                  Worked with Direct Connect, VPN integrations, and firewall proxy configurations for hybrid cloud networking.
-                </li>
-              
-                <li>
-                  Used AWS CloudWatch and CloudTrail for monitoring ELB, EC2, and cloud infrastructure resources.
-                </li>
-              
-                <li>
-                  Used Docker and Helm charts for deploying containerized applications into Kubernetes environments.
-                </li>
-
-              </ul>
-
+      <!-- Capgemini → Silabs -->
+      <div class="content-box fade-in">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+          <div>
+            <h3 class="content-title">DevOps Engineer</h3>
+            <div class="company-header">
+              <div class="company-dot"></div>
+              <div class="company-name">Capgemini &nbsp;·&nbsp; Client: Silabs India Pvt Ltd</div>
             </div>
-
-            <div class="date-text">
-              Feb 2021 - Jan 2023
-            </div>
-
+            <ul>
+              <li>Worked with GitHub and Bitbucket — created repositories, managed branches, and provided access permissions to developers.</li>
+              <li>Created Jenkins pipelines (scripted and Groovy/Declarative) to automate application build and deployment.</li>
+              <li>Migrated all source code repositories from GitHub to Bitbucket.</li>
+              <li>Managed and backed up build artifacts in JFrog Artifactory.</li>
+              <li>Configured Jenkins master-slave nodes to distribute build loads and achieve parallel builds.</li>
+              <li>Containerized Docker images, configured custom containers, and created Dockerfiles for multiple environments.</li>
+              <li>Deployed stateless and stateful applications on Kubernetes clusters using health checks, ConfigMaps, Secrets, and placement strategies.</li>
+              <li>Configured Kubernetes provider with Terraform to manage ConfigMaps, Namespaces, Volumes, and Autoscalers.</li>
+              <li>Monitored infrastructure and application health using Prometheus and Grafana.</li>
+              <li>Maintained CI system for process automation and multi-cluster environment management.</li>
+            </ul>
           </div>
-
+          <div class="date-text">Mar 2023 – Jul 2024</div>
         </div>
+      </div>
 
-        <!-- PRUDENTIAL -->
-        <div class="content-box">
-
-          <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
-
-            <div>
-
-              <h3 class="content-title">
-                DevOps Engineer
-              </h3>
-
-              <div class="company-name mb-3">
-                Prudential Insurance
-              </div>
-
-              <ul>
-
-                <li>
-                  Assisted in building and maintaining CI/CD pipelines using Jenkins to automate build, test, and deployment processes for multiple applications.
-                </li>
-              
-                <li>
-                  Managed source code repositories using Git and GitHub, including branch creation, pull requests, and code integration workflows.
-                </li>
-              
-                <li>
-                  Built and maintained Jenkins Freestyle and Pipeline jobs for continuous integration and automated deployments.
-                </li>
-              
-                <li>
-                  Integrated Jenkins with GitHub webhooks to trigger automated builds on code commits and pull requests.
-                </li>
-              
-                <li>
-                  Automated build processes using Maven to compile applications and generate deployment artifacts.
-                </li>
-              
-                <li>
-                  Created and maintained Dockerfiles to containerize applications and ensure consistent deployments across environments.
-                </li>
-              
-                <li>
-                  Built and managed Docker images and containers, and pushed container images to registries.
-                </li>
-              
-                <li>
-                  Deployed containerized applications using Docker and Kubernetes for development and testing environments.
-                </li>
-              
-                <li>
-                  Assisted in configuring Kubernetes resources including Pods, ReplicaSets, Deployments, Services, Namespaces, ConfigMaps, and Secrets.
-                </li>
-              
-                <li>
-                  Implemented rolling updates and scaling strategies in Kubernetes to support application availability and reliability.
-                </li>
-              
-                <li>
-                  Monitored and maintained containerized applications running on Kubernetes clusters, ensuring system stability and performance.
-                </li>
-              
-                <li>
-                  Developed Shell and Bash scripts to automate deployment tasks, build processes, and system administration activities.
-                </li>
-              
-                <li>
-                  Supported application deployments across DEV, QA, and staging environments using automated CI/CD pipelines.
-                </li>
-              
-                <li>
-                  Monitored build pipelines and deployment logs to identify failures and troubleshoot CI/CD pipeline issues.
-                </li>
-              
-                <li>
-                  Worked with development teams to resolve build failures, environment configuration issues, and deployment problems.
-                </li>
-              
-                <li>
-                  Assisted in implementing infrastructure automation using Ansible playbooks for environment configuration and deployment tasks.
-                </li>
-              
-                <li>
-                  Supported application deployment and configuration on Linux servers, ensuring service availability and system reliability.
-                </li>
-              
-                <li>
-                  Configured and maintained Apache and Nginx web servers for enterprise application hosting.
-                </li>
-              
-                <li>
-                  Assisted in provisioning and managing AWS EC2 instances for hosting applications and development environments.
-                </li>
-              
-                <li>
-                  Configured and maintained AWS S3 buckets for storing application artifacts, logs, and backup data.
-                </li>
-              
-                <li>
-                  Managed AWS Identity and Access Management (IAM) users, roles, and policies to enforce secure access control.
-                </li>
-              
-                <li>
-                  Monitored AWS resources using Amazon CloudWatch, including alarms, metrics, and application logs.
-                </li>
-              
-                <li>
-                  Assisted in configuring AWS VPC components including subnets, route tables, and security groups.
-                </li>
-              
-                <li>
-                  Supported Auto Scaling Groups and Elastic Load Balancers (ELB) to maintain application availability and traffic distribution.
-                </li>
-              
-                <li>
-                  Assisted in deploying containerized applications on AWS container platforms such as ECS and EKS.
-                </li>
-              
-                <li>
-                  Participated in monitoring and observability using Grafana, Prometheus, and Splunk to track infrastructure and application health.
-                </li>
-              
-                <li>
-                  Maintained documentation for CI/CD pipelines, infrastructure configurations, deployment procedures, and operational activities.
-                </li>
-              
-                <li>
-                  Participated in Agile development practices including sprint planning, backlog grooming, and daily stand-up meetings.
-                </li>
-
-              </ul>
-
+      <!-- Capgemini → Dell -->
+      <div class="content-box fade-in">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+          <div>
+            <h3 class="content-title">DevOps Engineer</h3>
+            <div class="company-header">
+              <div class="company-dot"></div>
+              <div class="company-name">Capgemini &nbsp;·&nbsp; Client: Dell CI/CD</div>
             </div>
-
-            <div class="date-text">
-              Oct 2018 - Feb 2021
-            </div>
-
+            <ul>
+              <li>Worked on AWS technologies including EC2, S3, EBS, ELB, Route53, and RDS for application infrastructure.</li>
+              <li>Consumed multiple Azure services including Blob Storage, Virtual Instances, Azure Data Sync, and Azure Data Factory.</li>
+              <li>Created Azure pipelines using App Functions and ARM templates; built complete CI/CD workflows using Azure DevOps.</li>
+              <li>Developed multi-stage YAML pipelines with Secrets and Secure Files management.</li>
+              <li>Set up Jenkins master, configured plugins, and created and monitored Jenkins CI/CD jobs.</li>
+              <li>Written Terraform scripts from scratch for provisioning Dev, Staging, Pre-Prod, and Production environments on AWS.</li>
+              <li>Created Docker images and containers and deployed web applications on containerized environments.</li>
+              <li>Written Kubernetes manifest files to deploy microservices on EKS clusters.</li>
+              <li>Configured web servers (Tomcat, Nginx, Apache) for application deployments.</li>
+              <li>Monitored infrastructure logs using Prometheus and Grafana across Kubernetes clusters and pods.</li>
+            </ul>
           </div>
-
+          <div class="date-text">Nov 2021 – Feb 2023</div>
         </div>
+      </div>
 
-        <!-- ACUITY -->
-        <div class="content-box">
-
-          <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
-
-            <div>
-
-              <h3 class="content-title">
-                Linux Administrator
-              </h3>
-
-              <div class="company-name mb-3">
-                Genpact
-              </div>
-
-              <ul>
-
-                <li>
-                  Provided L1 Linux administration support for enterprise environments.
-                </li>
-
-                <li>
-                  Managed RedHat Enterprise Linux, Ubuntu, and Debian servers.
-                </li>
-
-                <li>
-                  Performed user management, access control, and file system administration.
-                </li>
-
-                <li>
-                  Configured and maintained Logical Volume Management (LVM) and disk operations.
-                </li>
-
-                <li>
-                  Scheduled automation jobs using Cron and shell scripting.
-                </li>
-
-                <li>
-                  Performed server monitoring and performance troubleshooting using Linux utilities.
-                </li>
-
-                <li>
-                  Managed server maintenance, patching, and incident resolution activities.
-                </li>
-
-                <li>
-                  Worked with Jenkins, Docker, Maven, Nagios, and Git environments.
-                </li>
-
-                <li>
-                  Installed, configured, and maintained Linux servers (RHEL, CentOS, Ubuntu) across development, testing, and production environments.
-                </li>
-
-                <li>
-                  Created and managed user accounts, groups, and permissions, ensuring secure access control using SSH and sudo policies..
-                </li>
-
-              </ul>
-
+      <!-- TargetOne → Gomechanic -->
+      <div class="content-box fade-in">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+          <div>
+            <h3 class="content-title">DevOps Engineer</h3>
+            <div class="company-header">
+              <div class="company-dot"></div>
+              <div class="company-name">TargetOne Innovations Pvt Ltd &nbsp;·&nbsp; Client: Gomechanic</div>
             </div>
-
-            <div class="date-text">
-              Oct 2016 - Sep 2018
-            </div>
-
+            <ul>
+              <li>Built and maintained automated CI/CD pipelines using Jenkins, writing Groovy-based Jenkinsfiles stored in SCM.</li>
+              <li>Managed and backed up generated artifacts in JFrog Artifactory.</li>
+              <li>Deployed and managed applications within AWS environments with strong expertise in Docker and Kubernetes.</li>
+              <li>Configured Jenkins master-slave nodes to distribute build loads and achieve parallel builds.</li>
+              <li>Containerized Docker images and configured custom containers with Dockerfiles for multiple environments.</li>
+              <li>Deployed stateless and stateful applications on Kubernetes clusters using health checks, ConfigMaps, and placement strategies.</li>
+              <li>Set up EC2 instances in AWS, configured security groups, and set up Elastic IPs.</li>
+              <li>Automated CI/CD pipeline integrating Git, Maven, Jenkins, and AWS.</li>
+              <li>Deployed packages with all dependencies to DEV, QA, Staging, and Production environments.</li>
+              <li>Automated operational tasks using Shell and Bash scripting; updated Python scripts as required.</li>
+            </ul>
           </div>
-
+          <div class="date-text">Jun 2019 – Oct 2021</div>
         </div>
+      </div>
 
+      <!-- Previous Experience -->
+      <h3 class="section-title mt-5" style="font-size:1.8rem;">Previous Experience</h3>
+
+      <div class="prev-exp-row fade-in">
+        <div>
+          <div class="prev-exp-role">Retail Associate</div>
+          <div class="prev-exp-company">ManpowerGroup Services India Pvt Ltd &nbsp;·&nbsp; Client: OLX India</div>
+        </div>
+        <div class="date-text">Mar 2019</div>
+      </div>
+
+      <div class="prev-exp-row fade-in">
+        <div>
+          <div class="prev-exp-role">Sales Specialist</div>
+          <div class="prev-exp-company">Mahavir Auto Diagnostics Pvt Ltd &nbsp;·&nbsp; Client: Skoda India</div>
+        </div>
+        <div class="date-text">Jan 2017 – Feb 2019</div>
       </div>
 
     </section>
 
-    <!-- PROJECTS -->
-    <section class="resume-section" id="projects">
-
-      <div class="resume-section-content">
-
-        <h2 class="section-title">
-          Projects
-        </h2>
-
-        <!-- PROJECT 1 -->
-        <div class="content-box">
-        
-          <h3 class="content-title">
-            Enterprise Azure DevOps & CI/CD Automation Platform
-          </h3>
-        
-          <p>
-            Technologies:
-            Azure App Services, GitHub Actions, Terraform, IIS,
-            GitHub Self-Hosted Runners, Azure Front Door, YAML,
-            Docker, Kubernetes, Azure Networking
-          </p>
-        
-          <ul>
-        
-            <li>
-              Designed and implemented enterprise-grade CI/CD pipelines using GitHub Actions for .NET and SharePoint applications.
-            </li>
-        
-            <li>
-              Automated Azure infrastructure provisioning using Terraform including App Services, deployment slots, VNets, networking, and environment configurations.
-            </li>
-        
-            <li>
-              Implemented branch-based preview environments by dynamically creating Azure App Service slots for feature branches.
-            </li>
-        
-            <li>
-              Configured Azure App Service authentication using Microsoft Identity Provider and tenant-level access restrictions.
-            </li>
-        
-            <li>
-              Automated SharePoint WSP package generation and deployment workflows using GitHub Actions and Visual Studio build pipelines.
-            </li>
-        
-            <li>
-              Built reusable GitHub Actions YAML workflows for automated build validation, testing, code coverage, and release automation.
-            </li>
-        
-            <li>
-              Managed deployments to Azure App Services and on-premises IIS environments ensuring secure and reliable releases.
-            </li>
-        
-            <li>
-              Configured and maintained self-hosted GitHub runners for enterprise deployment workloads and infrastructure automation.
-            </li>
-        
-            <li>
-              Implemented branch protections, RBAC permissions, approval workflows, and secure deployment governance.
-            </li>
-        
-            <li>
-              Migrated code quality and security validation processes from SonarQube to GitHub Advanced Security (GHAS).
-            </li>
-        
-            <li>
-              Configured Azure Front Door, DNS failover automation, traffic routing, and disaster recovery synchronization.
-            </li>
-        
-            <li>
-              Integrated GitHub Actions with Azure services for slot swaps, automated deployments, and infrastructure provisioning.
-            </li>
-        
-            <li>
-              Worked on modernization initiatives by migrating traditional IIS-hosted applications into Docker and Kubernetes environments.
-            </li>
-        
-            <li>
-              Assisted in Kubernetes deployment configuration including manifests, ingress controllers, secrets, scaling, and environment variables.
-            </li>
-        
-            <li>
-              Optimized CI/CD pipeline performance through workflow enhancements, caching strategies, and deployment automation improvements.
-            </li>
-        
-            <li>
-              Troubleshot deployment failures, networking issues, authentication problems, and infrastructure configuration challenges across Azure and on-premises environments.
-            </li>
-        
-          </ul>
-        
-        </div>
-        
-        <!-- PROJECT 2 -->
-        <div class="content-box">
-        
-          <h3 class="content-title">
-            Cloud-Native Kubernetes & OpenShift Modernization Platform
-          </h3>
-        
-          <p>
-            Technologies:
-            Kubernetes, AKS, EKS, OpenShift, Docker, Helm,
-            Terraform, ArgoCD, GitLab CI/CD, Jenkins, Kafka
-          </p>
-        
-          <ul>
-        
-            <li>
-              Migrated legacy enterprise applications into Kubernetes-based microservices architecture using Docker and Kubernetes.
-            </li>
-        
-            <li>
-              Managed multi-cluster Kubernetes and Red Hat OpenShift environments across development, QA, production, and DR platforms.
-            </li>
-        
-            <li>
-              Configured and maintained highly available AKS and EKS clusters with multi-AZ architecture for scalability and fault tolerance.
-            </li>
-        
-            <li>
-              Implemented GitOps-based deployment workflows using ArgoCD for automated Kubernetes synchronization and deployments.
-            </li>
-        
-            <li>
-              Built and optimized Docker images and customized Dockerfiles following container security and performance best practices.
-            </li>
-        
-            <li>
-              Customized Helm charts for Deployments, StatefulSets, ReplicaSets, DaemonSets, ConfigMaps, Secrets, Services, and Ingress resources.
-            </li>
-        
-            <li>
-              Implemented rolling deployments, blue-green deployments, rollback strategies, and autoscaling for zero-downtime releases.
-            </li>
-        
-            <li>
-              Managed Kafka-based messaging services and monitoring workloads within Kubernetes clusters.
-            </li>
-        
-            <li>
-              Automated Kubernetes infrastructure provisioning using Terraform including namespaces, autoscalers, storage volumes, and networking configurations.
-            </li>
-        
-            <li>
-              Integrated GitLab YAML CI/CD pipelines with Docker and Kubernetes environments for automated deployments.
-            </li>
-        
-            <li>
-              Managed Kubernetes workloads for stateless and stateful applications using health checks, ConfigMaps, Secrets, and placement strategies.
-            </li>
-        
-            <li>
-              Designed and maintained Disaster Recovery (DR) OpenShift clusters ensuring workload replication and failover readiness.
-            </li>
-        
-            <li>
-              Configured namespace isolation across DEV, QA, PROD, and DR environments for secure workload management.
-            </li>
-        
-            <li>
-              Performed DR failover testing, resiliency validation, and infrastructure synchronization across clusters.
-            </li>
-        
-            <li>
-              Collaborated with development and operations teams to modernize cloud infrastructure and improve deployment scalability.
-            </li>
-        
-          </ul>
-        
-        </div>
-        
-        <!-- PROJECT 3 -->
-        <div class="content-box">
-        
-          <h3 class="content-title">
-            Enterprise DevSecOps, Monitoring & SRE Platform
-          </h3>
-        
-          <p>
-            Technologies:
-            GitHub Actions, GitLab CI/CD, Jenkins, SonarQube,
-            GHAS, Grafana, Prometheus, Dynatrace, Splunk,
-            ELK Stack, PagerDuty, Terraform, AWS CloudWatch
-          </p>
-        
-          <ul>
-        
-            <li>
-              Implemented enterprise DevSecOps practices integrating security scanning, code quality validation, and automated compliance checks into CI/CD pipelines.
-            </li>
-        
-            <li>
-              Integrated SonarQube, Fortify, GitHub Advanced Security (GHAS), and automated testing workflows into deployment pipelines.
-            </li>
-        
-            <li>
-              Developed Jenkins shared libraries to standardize CI/CD workflows for Angular, NodeJS, and Java Spring Boot applications.
-            </li>
-        
-            <li>
-              Implemented centralized monitoring and observability platforms using Grafana, Prometheus, Dynatrace, Splunk, Kibana, and ELK Stack.
-            </li>
-        
-            <li>
-              Created real-time dashboards, metrics collection, and alerting systems for Kubernetes, cloud infrastructure, and enterprise applications.
-            </li>
-        
-            <li>
-              Configured PagerDuty integrations for automated incident notifications, escalation workflows, and SRE alert management.
-            </li>
-        
-            <li>
-              Participated in SRE on-call rotations, production support, incident management, and root cause analysis (RCA) activities.
-            </li>
-        
-            <li>
-              Implemented AWS monitoring and logging solutions using CloudWatch and CloudTrail for infrastructure visibility and auditing.
-            </li>
-        
-            <li>
-              Automated infrastructure provisioning and cloud resource management using Terraform and Infrastructure as Code practices.
-            </li>
-        
-            <li>
-              Implemented TLS/SSL certificate automation, secure access controls, and Web Application Firewall (WAF) configurations.
-            </li>
-        
-            <li>
-              Configured artifact management workflows using JFrog Artifactory and GitLab container registries.
-            </li>
-        
-            <li>
-              Supported cloud infrastructure cost optimization initiatives using monitoring analytics and PacBot reporting tools.
-            </li>
-        
-            <li>
-              Reduced deployment failures and improved release reliability through automation, monitoring, and deployment governance.
-            </li>
-        
-            <li>
-              Collaborated with development, QA, and operations teams to improve system reliability, deployment stability, and cloud scalability.
-            </li>
-
-          </ul>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <!-- SKILLS -->
+    <!-- ══ SKILLS ══ -->
     <section class="resume-section" id="skills">
-    
-      <div class="resume-section-content">
-    
-        <h2 class="section-title">
-          Skills
-        </h2>
-    
-        <!-- CLOUD -->
-        <div class="content-box">
-    
-          <h3 class="content-title mb-4">
-            Cloud Platforms
-          </h3>
-    
-          <div class="skill-tags">
-    
-            <span>AWS</span>
-            <span>Microsoft Azure</span>
-            <span>Azure App Services</span>
-            <span>Azure Front Door</span>
-            <span>Azure Networking</span>
-            <span>Azure DevOps</span>
-            <span>AKS</span>
-            <span>EKS</span>
-            <span>Amazon EC2</span>
-            <span>Amazon S3</span>
-            <span>IAM</span>
-            <span>VPC</span>
-            <span>ELB</span>
-            <span>Route53</span>
-            <span>Lambda</span>
-            <span>CloudWatch</span>
-            <span>CloudTrail</span>
-    
-          </div>
-    
-        </div>
-    
-        <!-- DEVOPS -->
-        <div class="content-box">
-    
-          <h3 class="content-title mb-4">
-            DevOps & CI/CD
-          </h3>
-    
-          <div class="skill-tags">
-    
-            <span>GitHub Actions</span>
-            <span>GitLab CI/CD</span>
-            <span>Jenkins</span>
-            <span>Terraform</span>
-            <span>Ansible</span>
-            <span>ArgoCD</span>
-            <span>CI/CD Pipelines</span>
-            <span>Infrastructure as Code</span>
-            <span>DevSecOps</span>
-            <span>GitOps</span>
-            <span>Maven</span>
-            <span>JFrog Artifactory</span>
-            <span>SonarQube</span>
-            <span>Fortify</span>
-            <span>GHAS</span>
-    
-          </div>
-    
-        </div>
-    
-        <!-- CONTAINERS -->
-        <div class="content-box">
-    
-          <h3 class="content-title mb-4">
-            Containers & Orchestration
-          </h3>
-    
-          <div class="skill-tags">
-    
-            <span>Docker</span>
-            <span>Kubernetes</span>
-            <span>Red Hat OpenShift</span>
-            <span>Helm</span>
-            <span>Docker Swarm</span>
-            <span>AKS</span>
-            <span>EKS</span>
-            <span>Containerization</span>
-            <span>Microservices</span>
-            <span>Ingress Controllers</span>
-            <span>StatefulSets</span>
-            <span>ReplicaSets</span>
-            <span>DaemonSets</span>
-    
-          </div>
-    
-        </div>
-    
-        <!-- SCRIPTING -->
-        <div class="content-box">
-    
-          <h3 class="content-title mb-4">
-            Programming & Scripting
-          </h3>
-    
-          <div class="skill-tags">
-    
-            <span>Python</span>
-            <span>Shell Scripting</span>
-            <span>Bash</span>
-            <span>PowerShell</span>
-            <span>YAML</span>
-            <span>Linux Administration</span>
-            <span>Git</span>
-            <span>GitHub</span>
-            <span>GitLab</span>
-    
-          </div>
-    
-        </div>
-    
-        <!-- MONITORING -->
-        <div class="content-box">
-    
-          <h3 class="content-title mb-4">
-            Monitoring & Observability
-          </h3>
-    
-          <div class="skill-tags">
-    
-            <span>Grafana</span>
-            <span>Prometheus</span>
-            <span>Dynatrace</span>
-            <span>Splunk</span>
-            <span>Kibana</span>
-            <span>ELK Stack</span>
-            <span>AppDynamics</span>
-            <span>Nagios</span>
-            <span>CloudWatch</span>
-            <span>CloudTrail</span>
-            <span>PagerDuty</span>
-            <span>Monitoring</span>
-            <span>Logging</span>
-            <span>SRE</span>
-    
-          </div>
-    
-        </div>
-    
-        <!-- NETWORKING -->
-        <div class="content-box">
-    
-          <h3 class="content-title mb-4">
-            Networking & Security
-          </h3>
-    
-          <div class="skill-tags">
-    
-            <span>VNet Integration</span>
-            <span>VPN</span>
-            <span>Direct Connect</span>
-            <span>Firewall Proxies</span>
-            <span>RBAC</span>
-            <span>IAM</span>
-            <span>TLS/SSL</span>
-            <span>WAF</span>
-            <span>DNS Management</span>
-            <span>Disaster Recovery</span>
-            <span>High Availability</span>
-    
-          </div>
-    
-        </div>
-    
-        <!-- WEB & APP SERVERS -->
-        <div class="content-box">
-    
-          <h3 class="content-title mb-4">
-            Web & Application Servers
-          </h3>
-    
-          <div class="skill-tags">
-    
-            <span>IIS</span>
-            <span>Apache</span>
-            <span>Nginx</span>
-            <span>WebLogic</span>
-            <span>Tomcat</span>
-    
-          </div>
-    
-        </div>
-    
-        <!-- DATABASE -->
-        <div class="content-box">
-    
-          <h3 class="content-title mb-4">
-            Databases & Storage
-          </h3>
-    
-          <div class="skill-tags">
-    
-            <span>SQL Server</span>
-            <span>MySQL</span>
-            <span>PostgreSQL</span>
-            <span>MongoDB</span>
-            <span>Snowflake</span>
-            <span>AWS RDS</span>
-            <span>Elastic Storage</span>
+      <h2 class="section-title">Skills</h2>
 
-          </div>
-
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">Cloud Platforms</h3>
+        <div class="skill-tags">
+          <span>AWS</span><span>Microsoft Azure</span><span>EC2</span><span>S3</span>
+          <span>IAM</span><span>VPC</span><span>ELB</span><span>Route53</span>
+          <span>RDS</span><span>EBS</span><span>Auto Scaling</span><span>Lambda</span>
+          <span>CloudWatch</span><span>Azure App Services</span><span>AKS</span>
+          <span>Azure Data Factory</span><span>Azure Monitor</span><span>App Insights</span>
         </div>
+      </div>
 
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">DevOps &amp; CI/CD</h3>
+        <div class="skill-tags">
+          <span>Jenkins</span><span>GitHub Actions</span><span>Azure DevOps</span>
+          <span>Azure Pipelines</span><span>YAML Pipelines</span><span>GitLab CI/CD</span>
+          <span>Scripted Pipelines</span><span>Declarative Pipelines</span>
+          <span>Release Management</span><span>CI/CD Automation</span>
+        </div>
+      </div>
+
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">Containers &amp; Orchestration</h3>
+        <div class="skill-tags">
+          <span>Docker</span><span>Kubernetes</span><span>Docker Swarm</span>
+          <span>Helm Charts</span><span>EKS</span><span>AKS</span>
+          <span>Deployments</span><span>StatefulSets</span><span>ReplicaSets</span>
+          <span>DaemonSets</span><span>ConfigMaps</span><span>Secrets</span>
+          <span>Ingress Controllers</span><span>Microservices</span>
+        </div>
+      </div>
+
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">Infrastructure as Code</h3>
+        <div class="skill-tags">
+          <span>Terraform</span><span>Ansible</span><span>ARM Templates</span>
+          <span>Infrastructure Automation</span><span>IaC</span>
+        </div>
+      </div>
+
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">Monitoring &amp; Logging</h3>
+        <div class="skill-tags">
+          <span>Prometheus</span><span>Grafana</span><span>Splunk</span>
+          <span>AppDynamics</span><span>AWS CloudWatch</span><span>Azure Monitor</span>
+          <span>Azure App Insights</span><span>Nagios</span>
+        </div>
+      </div>
+
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">Version Control &amp; Build Tools</h3>
+        <div class="skill-tags">
+          <span>Git</span><span>GitHub</span><span>Bitbucket</span><span>Azure Repos</span>
+          <span>Maven</span><span>Ant</span><span>JFrog Artifactory</span><span>Nexus</span>
+        </div>
+      </div>
+
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">Programming &amp; Scripting</h3>
+        <div class="skill-tags">
+          <span>Shell Scripting</span><span>Bash</span><span>Python</span>
+          <span>PowerShell</span><span>Groovy</span><span>YAML</span>
+        </div>
+      </div>
+
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">Security &amp; Code Quality</h3>
+        <div class="skill-tags">
+          <span>SonarQube</span><span>RBAC</span><span>IAM Policies</span>
+          <span>Security Groups</span><span>Vulnerability Management</span>
+        </div>
+      </div>
+
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">Web &amp; App Servers</h3>
+        <div class="skill-tags">
+          <span>Apache</span><span>Nginx</span><span>Tomcat</span><span>IIS</span>
+        </div>
+      </div>
+
+      <div class="content-box fade-in">
+        <h3 class="content-title mb-4">Operating Systems &amp; Environments</h3>
+        <div class="skill-tags">
+          <span>Amazon Linux</span><span>RHEL</span><span>CentOS</span>
+          <span>Ubuntu</span><span>Windows Server</span><span>VMware</span>
+        </div>
       </div>
 
     </section>
 
-    <!-- EDUCATION -->
+    <!-- ══ EDUCATION ══ -->
     <section class="resume-section" id="education">
+      <h2 class="section-title">Education</h2>
 
-      <div class="resume-section-content">
-
-        <h2 class="section-title">
-          Education
-        </h2>
-
-        <div class="content-box">
-
-          <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
-
+      <div class="content-box fade-in">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 align-items-start">
+          <div class="d-flex gap-3 align-items-center">
+            <div class="edu-icon"><i class="bi bi-mortarboard-fill"></i></div>
             <div>
-
-              <h3 class="content-title">
-                JNTU Kakinada(India)
-              </h3>
-
-              <div class="company-name mb-3">
-                Bachelor of Mechanical Engineering
-              </div>
-
+              <h3 class="content-title">JNTU Kakinada, India</h3>
+              <div class="company-name">Bachelor of Engineering – Mechanical Engineering</div>
             </div>
-
-            <div class="date-text">
-              2016
-            </div>
-
           </div>
-
+          <div class="date-text">2016</div>
         </div>
-
       </div>
 
     </section>
 
-  </div>
+  </div><!-- /main-wrap -->
 
-  <!-- JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-
   <script>
+    // Mobile menu toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu   = document.getElementById('mobileMenu');
+    hamburgerBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
 
-    document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+    function closeMobileMenu() { mobileMenu.classList.remove('open'); }
 
-      link.addEventListener('click', () => {
+    // Active nav link on scroll
+    const sections  = document.querySelectorAll('.resume-section');
+    const navLinks  = document.querySelectorAll('.side-nav-list .nav-link');
 
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-
-        if (navbarCollapse.classList.contains('show')) {
-
-          const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
-            toggle: false
-          });
-
-          bsCollapse.hide();
-
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.side-nav-list a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
         }
-
       });
+    }, { threshold: 0.35 });
 
-    });
+    sections.forEach(s => observer.observe(s));
 
+    // Fade-in on scroll
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    fadeEls.forEach(el => fadeObserver.observe(el));
   </script>
-
 </body>
-
 </html>
