@@ -3,10 +3,10 @@ html {
 }
 
 :root {
-    --primary-color: #0f6cbd;
-    --primary-dark: #084c8d;
+    --primary-color: #4a9e6b;
+    --primary-dark: #2d7a4f;
     --text-dark: #2d3436;
-    --text-light: #6c757d;
+    --text-light: #6b7b75;
     --border-color: #edf0f2;
 }
 
@@ -177,7 +177,7 @@ body {
 
 .date-text {
     min-width: 150px;
-    color: var(--primary-color);
+    color: #6b8f7a;
     font-weight: 700;
     white-space: nowrap;
     font-size: 0.85rem;
@@ -216,7 +216,7 @@ body {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background-color: #495057;
+    background-color: #6b7b75;
     color: #ffffff;
     display: flex;
     align-items: center;
@@ -240,12 +240,12 @@ body {
 }
 
 .skill-tags span {
-    background-color: #f8f9fa;
+    background-color: #f0f4f1;
     padding: 0.65rem 1rem;
     border-radius: 30px;
     font-weight: 600;
     color: #343a40;
-    border: 1px solid #e9ecef;
+    border: 1px solid #d4e4da;
     transition: all 0.3s ease;
     font-size: 0.82rem;
 }
